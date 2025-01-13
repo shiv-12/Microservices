@@ -16,10 +16,8 @@ public class LimitsController {
 
     @GetMapping()
     public Limits retrieveLimits() {
-
 //        return new Limits(1, 1000);
 //        Instead of returning values hardcoded, we can fetch it from application.properties
         return new Limits(configuration.getMinimum(), configuration.getMaximum());
-
     }
 }
