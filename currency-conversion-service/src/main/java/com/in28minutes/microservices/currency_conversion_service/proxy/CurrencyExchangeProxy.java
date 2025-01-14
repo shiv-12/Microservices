@@ -6,12 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 // Adding application.name and base url of CurrencyExchangeService
-@FeignClient(name = "currency-exchange", url = "localhost:8000/currency-exchange")
-public interface CurrencyExchangeProxy {
 
-    @GetMapping("/from/{currency_from}/to/{currency_to}")
+// @FeignClient(name = "currency-exchange", url = "localhost:8000")
+
+// Remove url and Let Load balancer to Decide Which Post to be Used
+@FeignClient(name = "currency-exchange")
+public interface CurrencyExchangeProxy {
+    @GetMapping("/currency-exchange/from/{currency_from}/to/{currency_to}")
     public CurrencyConversionEntity getCurrencyExchange(
             @PathVariable String currency_from,
             @PathVariable String currency_to);
-
 }

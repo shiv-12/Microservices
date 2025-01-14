@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-
 @RestController
 @RequestMapping("/currency-exchange")
 public class CurrencyExchangeController {
@@ -24,13 +22,12 @@ public class CurrencyExchangeController {
     @GetMapping("/from/{currency_from}/to/{currency_to}")     // URL ==> /from/USD/to/INR
     public CurrencyExchange getCurrencyExchange(
             @PathVariable String currency_from,
-            @PathVariable String currency_to)
-    {
+            @PathVariable String currency_to) {
 
         CurrencyExchange currencyExchange = exchangeRepository
                 .findCurrencyExchangeByFromAndTo(currency_from, currency_to);
 
-        if(currencyExchange == null) {
+        if (currencyExchange == null) {
             throw new RuntimeException("Data Not Found!");
         }
 
@@ -38,7 +35,7 @@ public class CurrencyExchangeController {
         // Multiple instances of CurrencyExchange may be running
         String instancePort = environment.getProperty("local.server.port");
 
-        currencyExchange.setEnvironment(instancePort);
+        currencyExchange.setEnvironment("Response from : " + instancePort);
         return currencyExchange;
     }
 }
