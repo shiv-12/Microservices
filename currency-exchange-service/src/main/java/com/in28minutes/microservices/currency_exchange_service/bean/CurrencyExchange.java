@@ -1,17 +1,31 @@
 package com.in28minutes.microservices.currency_exchange_service.bean;
 
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "currency_exchange")
 public class CurrencyExchange {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "currency_from")
     private String from;
+
+    @Column(name = "currency_to")
     private String to;
+
     // BigDecimal allows for high-precision arithmetic calculation where accuracy is critical
+    @Column(name = "conversion_multiple")
     private BigDecimal conversionMultiple;
 
     // If we have multiple instances of CurrencyExchangeService running in parallel,
-    // the environment variable will be used to determine which instance is providing the response.
+    // the environment variable will be used to determine which instance is providing the response back.
+    @Column(name = "environment")
     private String environment;
 
     // For JPA/HIBERNATE
